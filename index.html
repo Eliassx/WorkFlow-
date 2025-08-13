@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Workflow+ — Gerenciador de Tarefas</title>
+  </head>
+  <body>
+    <header>
+      <h1>Workflow+</h1>
+      <button class="add" id="addBtn">+ Nova Tarefa</button>
+    </header>
+    <main>
+      <section class="agenda" id="agenda">
+        <h2>📅 Tarefas de Hoje</h2>
+        <div id="agendaTasks"></div>
+      </section>
+
+      <section class="columns">
+        <div class="column" data-status="todo">
+          <div class="col-title">A Fazer <span id="count-todo"></span></div>
+          <div id="todo"></div>
+        </div>
+        <div class="column" data-status="doing">
+          <div class="col-title">
+            Em Progresso <span id="count-doing"></span>
+          </div>
+          <div id="doing"></div>
+        </div>
+        <div class="column" data-status="done">
+          <div class="col-title">Concluído <span id="count-done"></span></div>
+          <div id="done"></div>
+        </div>
+      </section>
+
+      <section class="archived" id="archivedSection">
+        <h2>📁 Arquivadas</h2>
+        <div id="archivedTasks"></div>
+      </section>
+    </main>
+
+    <template id="taskTpl">
+      <div class="task" draggable="true">
+        <div class="title"></div>
+        <div class="actions">
+          <button class="edit">✏️</button>
+          <button class="archive">📁</button>
+        </div>
+      </div>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
