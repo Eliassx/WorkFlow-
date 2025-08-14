@@ -1,5 +1,33 @@
 const STORAGE_KEY = "workflow_plus_tasks_agenda_archive";
 let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+// Se não houver tarefas salvas, criar tarefas padrão
+if (tasks.length === 0) {
+  tasks = [
+    {
+      id: Date.now().toString(),
+      title: "Reunião com equipe",
+      deadline: new Date().toISOString().slice(0, 10),
+      status: "todo",
+      archived: false,
+    },
+    {
+      id: (Date.now() + 1).toString(),
+      title: "Enviar relatório semanal",
+      deadline: new Date(Date.now() + 86400000).toISOString().slice(0, 10), // amanhã
+      status: "doing",
+      archived: false,
+    },
+    {
+      id: (Date.now() + 2).toString(),
+      title: "Organizar arquivos do projeto",
+      deadline: "",
+      status: "done",
+      archived: false,
+    },
+  ];
+}
+
 const columns = {
   todo: document.getElementById("todo"),
   doing: document.getElementById("doing"),
@@ -27,7 +55,6 @@ function updateCounters() {
 function renderAgenda() {
   agendaTasksDiv.innerHTML = "";
   const today = new Date().toISOString().slice(0, 10);
-  console.log(today);
   const todayTasks = tasks.filter(
     (t) => t.deadline === today && t.status !== "done" && !t.archived
   );
@@ -108,12 +135,10 @@ function addTask() {
   const title = prompt("Título da tarefa:");
   if (!title) return;
   const deadline = prompt("Prazo (AAAA-MM-DD):");
-  const description = prompt("Descrição da tarefa:");
   tasks.push({
     id: Date.now().toString(),
     title,
     deadline,
-    description,
     status: "todo",
     archived: false,
   });
