@@ -91,6 +91,16 @@ function createTaskElement(task, isArchived = false) {
   el.querySelector(".archive").addEventListener("click", () =>
     archiveTask(task.id)
   );
+  el.querySelector(".change").addEventListener("click", () => {
+    if (task.status === "todo") {
+      task.status = "doing";
+    } else if (task.status === "doing") {
+      task.status = "done";
+    } else {
+      task.status = "todo"; // volta para o início
+    }
+    renderTasks();
+  });
   return el;
 }
 
@@ -98,10 +108,12 @@ function addTask() {
   const title = prompt("Título da tarefa:");
   if (!title) return;
   const deadline = prompt("Prazo (AAAA-MM-DD):");
+  const description = prompt("Descrição da tarefa:");
   tasks.push({
     id: Date.now().toString(),
     title,
     deadline,
+    description,
     status: "todo",
     archived: false,
   });
